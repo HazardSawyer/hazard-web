@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kişisel Linklerim</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #0f0f1a;
+            color: white;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
+        
+        .banner {
+            width: 100%;
+            height: 150px;
+            border-radius: 15px;
+            object-fit: cover;
+            margin-bottom: -50px;
+            z-index: 1;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-top: 42px;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #3a86ff;
+            box-shadow: 0 0 20px rgba(58, 134, 255, 0.5);
+            z-index: 2;
+            background-color: #0f0f1a;
+        }
+        
+        .profile-info {
+            background-color: #1a1a2e;
+            width: 100%;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .profile-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .profile-status {
+            background-color: #3a86ff;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        
+        .profile-details {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 14px;
+            color: #aaa;
+        }
+        
+        .profile-bio {
+            font-size: 14px;
+            line-height: 1.5;
+            text-align: center;
+            color: #ddd;
+        }
+        
+        .languages {
+            width: 100%;
+            background-color: #1a1a2e;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .languages-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .language-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 15px;
+        }
+        
+        .language-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .language-icon {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+        
+        .language-name {
+            font-size: 12px;
+            text-align: center;
+        }
+        
+        .links {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        
+        .link-item {
+            position: relative;
+            background-color: #1a1a2e;
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: white;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+        
+        .link-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .link-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(58, 134, 255, 0.4), transparent);
+            transition: 0.5s;
+        }
+        
+        .link-item:hover::before {
+            left: 100%;
+        }
+        
+        .link-icon {
+            font-size: 24px;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background-color: #3a86ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .link-text {
+            flex: 1;
+        }
+        
+        .link-title {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .link-desc {
+            font-size: 12px;
+            color: #aaa;
+        }
+        
+        .link-arrow {
+            font-size: 20px;
+            color: #3a86ff;
+            transition: transform 0.3s;
+        }
+        
+        .link-item:hover .link-arrow {
+            transform: translateX(5px);
+        }
+        
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 12px;
+            color: #555;
+            padding: 20px;
+        }
+        
+        .music-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #1a1a2e;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+        }
+        
+        .music-controls i {
+            font-size: 20px;
+            color: #3a86ff;
+        }
+
+        /* Yeni eklenen feedback formu stilleri */
+        .feedback {
+            width: 100%;
+            background-color: #1a1a2e;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+        }
+        
+        .feedback-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .feedback-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .form-group label {
+            font-size: 14px;
+            color: #aaa;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            background-color: #25253e;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 15px;
+            color: white;
+            font-size: 14px;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .submit-btn {
+            background-color: #3a86ff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background-color: #2a76ef;
+            transform: translateY(-2px);
+        }
+        
+        .success-message {
+            color: #1DB954;
+            text-align: center;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <!-- Müzik Çalar -->
+    <audio id="background-music" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        Tarayıcınız audio elementini desteklemiyor.
+    </audio>
+    
+    <div class="music-controls" id="musicToggle">
+        <i class="fas fa-music"></i>
+    </div>
+    
+    <div class="container">
+        <!-- Banner -->
+        <img src="https://cdn.discordapp.com/attachments/1373355756971233464/1380292216399855716/i_am_legend.png?ex=684358cc&is=6842074c&hm=64e6e19ea813019c7e4bd8e4948ef9abc9dd74cc4b1cc72a6cf071dbb88dfa5b&" alt="Banner" class="banner">
+        
+        <!-- Profil -->
+        <div class="profile">
+            <img src="https://cdn.discordapp.com/attachments/1373355756971233464/1380292386273497289/13killoki_pp.png?ex=684358f5&is=68420775&hm=76f52011754b3ac86f099a23791d76f3a8ff86be4dfd751c5f6fd2f7cfea520e&" alt="Profil Resmi" class="profile-img">
+            
+            <div class="profile-info">
+                <div class="profile-name">Hazard Sawyer</div>
+                <div class="profile-status">Full Stack Developer</div>
+                
+                <div class="profile-details">
+                    <div class="detail-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>İzmir, Türkiye</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-birthday-cake"></i>
+                        <span>17 Yaşında</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-heart"></i>
+                        <span>Kod Yazmak</span>
+                    </div>
+                </div>
+                
+                <div class="profile-bio">
+                    Selamlar ben Hazard. Uzun bir süredir kodlama ve Siber Güvenlik odaklıyım Robloxta başladığım kariyerim şu anda beni buralara taşıdı. +4 Senelik deneyimim ile Oyun Geliştirme ve Web Sitesi düzenleme odaklıyım.
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bildiğim Diller -->
+        <div class="languages">
+            <div class="languages-title">Bildiğim Programlama Dilleri</div>
+            <div class="language-grid">
+                <div class="language-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" class="language-icon">
+                    <span class="language-name">Python</span>
+                </div>
+                <div class="language-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML" class="language-icon">
+                    <span class="language-name">HTML</span>
+                </div>
+                <div class="language-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++" class="language-icon">
+                    <span class="language-name">C++</span>
+                </div>
+                <div class="language-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="C#" class="language-icon">
+                    <span class="language-name">C#</span>
+                </div>
+                <div class="language-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP" class="language-icon">
+                    <span class="language-name">PHP</span>
+                </div>
+                <div class="language-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" class="language-icon">
+                    <span class="language-name">Java</span>
+                </div>
+                <div class="language-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" class="language-icon">
+                    <span class="language-name">JavaScript</span>
+                </div>
+                <div class="language-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/lua/lua-original.svg" alt="Lua" class="language-icon">
+                    <span class="language-name">Lua</span>
+                </div>
+                <div class="language-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js" class="language-icon">
+                    <span class="language-name">Node.js</span>
+                </div>
+                <div class="language-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/discordjs/discordjs-original.svg" alt="Discord.js" class="language-icon">
+                    <span class="language-name">Discord.js</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Linkler -->
+        <div class="links">
+            <div class="link-item" data-url="https://discord.gg/petland">
+                <div class="link-icon">
+                    <i class="fab fa-discord"></i>
+                </div>
+                <div class="link-text">
+                    <div class="link-title">Discord</div>
+                    <div class="link-desc">Discord sunucuma katılın</div>
+                </div>
+                <i class="fas fa-chevron-right link-arrow"></i>
+            </div>
+            
+            <div class="link-item" data-url="https://www.roblox.com/communities/11284387/Petland-Studio#!/about">
+                <div class="link-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <div class="link-text">
+                    <div class="link-title">Roblox</div>
+                    <div class="link-desc">Roblox grubum</div>
+                </div>
+                <i class="fas fa-chevron-right link-arrow"></i>
+            </div>
+            
+            <div class="link-item" data-url="https://www.instagram.com/hazard.js/">
+                <div class="link-icon">
+                    <i class="fab fa-instagram"></i>
+                </div>
+                <div class="link-text">
+                    <div class="link-title">Instagram</div>
+                    <div class="link-desc">Fotoğraflarım ve hikayelerim</div>
+                </div>
+                <i class="fas fa-chevron-right link-arrow"></i>
+            </div>
+            
+            <div class="link-item" data-url="https://github.com/HazardSawyer">
+                <div class="link-icon">
+                    <i class="fab fa-github"></i>
+                </div>
+                <div class="link-text">
+                    <div class="link-title">GitHub</div>
+                    <div class="link-desc">Projelerim ve kodlarım</div>
+                </div>
+                <i class="fas fa-chevron-right link-arrow"></i>
+            </div>
+            
+            <div class="link-item" data-url="https://x.com/HazardSawyer0">
+                <div class="link-icon">
+                    <i class="fab fa-twitter"></i>
+                </div>
+                <div class="link-text">
+                    <div class="link-title">Twitter</div>
+                    <div class="link-desc">Günlük düşüncelerim</div>
+                </div>
+                <i class="fas fa-chevron-right link-arrow"></i>
+            </div>
+            
+            <div class="link-item" data-url="https://www.itempazar.com/profil/hazard">
+                <div class="link-icon">
+                    <i class="fab fa-itempazar"></i>
+                </div>
+                <div class="link-text">
+                    <div class="link-title">Item Pazar</div>
+                    <div class="link-desc">Satış yaptığım hesap</div>
+                </div>
+                <i class="fas fa-chevron-right link-arrow"></i>
+            </div>
+        </div>
+
+        <!-- Yeni eklenen feedback formu -->
+        <div class="feedback">
+            <div class="feedback-title">Benimle İletişime Geçin</div>
+            <form class="feedback-form" id="feedbackForm">
+                <div class="form-group">
+                    <label for="name">İsminiz</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Konu</label>
+                    <input type="text" id="subject" name="subject" required placeholder="Ne için yazıyorsunuz?">
+                </div>
+                <div class="form-group">
+                    <label for="message">Mesajınız</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Gönder</button>
+                <div class="success-message" id="successMessage">
+                    Mesajınız başarıyla gönderildi! Teşekkür ederim.
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <footer>
+        © 2023 Tüm hakları saklıdır.
+    </footer>
+    
+    <script>
+        // Fareyi takip eden parçacıklar
+        document.addEventListener('DOMContentLoaded', function() {
+            const particles = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'absolute';
+                particle.style.width = Math.random() * 3 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.backgroundColor = '#3a86ff';
+                particle.style.borderRadius = '50%';
+                particle.style.opacity = Math.random() * 0.3 + 0.1;
+                particle.style.boxShadow = '0 0 5px #3a86ff';
+                
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = Math.random() * 100 + 'vh';
+                
+                particles.appendChild(particle);
+                
+                animateParticle(particle);
+            }
+            
+            function animateParticle(particle) {
+                let posX = Math.random() * window.innerWidth;
+                let posY = Math.random() * window.innerHeight;
+                let angle = Math.random() * Math.PI * 2;
+                let speed = Math.random() * 0.3 + 0.1;
+                let size = parseFloat(particle.style.width);
+                
+                function move() {
+                    angle += (Math.random() - 0.5) * 0.1;
+                    posX += Math.cos(angle) * speed;
+                    posY += Math.sin(angle) * speed;
+                    
+                    if (posX < -size) posX = window.innerWidth + size;
+                    if (posX > window.innerWidth + size) posX = -size;
+                    if (posY < -size) posY = window.innerHeight + size;
+                    if (posY > window.innerHeight + size) posY = -size;
+                    
+                    particle.style.left = posX + 'px';
+                    particle.style.top = posY + 'px';
+                    
+                    requestAnimationFrame(move);
+                }
+                
+                move();
+            }
+            
+            // Fare hareketini takip eden etki
+            document.addEventListener('mousemove', function(e) {
+                const x = e.clientX;
+                const y = e.clientY;
+                
+                document.body.style.background = `
+                    radial-gradient(circle at ${x}px ${y}px, 
+                    rgba(58, 134, 255, 0.05) 0%, 
+                    #0f0f1a 50%)
+                `;
+            });
+            
+            // Link yönlendirmeleri
+            document.querySelectorAll('.link-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const url = this.getAttribute('data-url');
+                    window.open(url, '_blank');
+                });
+            });
+            
+            // Arkaplan müziği kontrolü
+            const backgroundMusic = document.getElementById('background-music');
+            const musicToggle = document.getElementById('musicToggle');
+            let isMusicPlaying = false;
+            
+            // Müzik ses seviyesini ayarla (kısık ses)
+            backgroundMusic.volume = 0.2;
+            
+            // Müzik kontrol butonu
+            musicToggle.addEventListener('click', function() {
+                if (isMusicPlaying) {
+                    backgroundMusic.pause();
+                    musicToggle.innerHTML = '<i class="fas fa-music"></i>';
+                } else {
+                    backgroundMusic.play();
+                    musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
+                }
+                isMusicPlaying = !isMusicPlaying;
+            });
+            
+            // Sayfa yüklendiğinde müziği otomatik başlat
+            backgroundMusic.play();
+            isMusicPlaying = true;
+            musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
+
+            // Feedback formu işleme
+            document.getElementById('feedbackForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                try {
+                    // Kullanıcının IP adresini al
+                    const ipResponse = await fetch('https://api.ipify.org?format=json');
+                    const ipData = await ipResponse.json();
+                    const userIP = ipData.ip;
+                    
+                    const formData = {
+                        name: document.getElementById('name').value,
+                        subject: document.getElementById('subject').value,
+                        message: document.getElementById('message').value,
+                        ip: userIP,
+                        timestamp: new Date().toLocaleString(),
+                        userAgent: navigator.userAgent
+                    };
+                    
+                    // WEBHOOK_URL'nizi buraya ekleyin
+                    const WEBHOOK_URL = "https://discord.com/api/webhooks/1380301587276239000/zgna1aOibxJkRfW0N87fp8LIOsZNcygWRUZNSWx8zYmYe7A_OIOvgVJoF9daK0_TA-xj";
+                    
+                    // Embed oluştur
+                    const embed = {
+                        title: "🚀 Yeni Feedback Mesajı",
+                        color: 0x3a86ff,
+                        fields: [
+                            {
+                                name: "👤 İsim",
+                                value: formData.name || "Belirtilmemiş",
+                                inline: true
+                            },
+                            {
+                                name: "📌 Konu",
+                                value: formData.subject || "Belirtilmemiş",
+                                inline: true
+                            },
+                            {
+                                name: "📝 Mesaj",
+                                value: formData.message || "Belirtilmemiş"
+                            },
+                            {
+                                name: "🌐 IP Adresi",
+                                value: formData.ip,
+                                inline: true
+                            },
+                            {
+                                name: "🕒 Tarih",
+                                value: formData.timestamp,
+                                inline: true
+                            },
+                            {
+                                name: "🔍 Tarayıcı Bilgisi",
+                                value: formData.userAgent.substring(0, 100) + "..."
+                            }
+                        ],
+                        footer: {
+                            text: "HazardSawyer Feedback Sistemi"
+                        },
+                        thumbnail: {
+                            url: "https://cdn.discordapp.com/attachments/1373355756971233464/1380292386273497289/13killoki_pp.png"
+                        }
+                    };
+                    
+                    await fetch(WEBHOOK_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            content: "@everyone Yeni bir feedback mesajı geldi!",
+                            embeds: [embed],
+                            allowed_mentions: {
+                                parse: ["everyone"]
+                            }
+                        }),
+                    });
+                    
+                    // Başarı mesajını göster
+                    document.getElementById('successMessage').style.display = 'block';
+                    document.getElementById('feedbackForm').reset();
+                    
+                    // 3 saniye sonra mesajı gizle
+                    setTimeout(() => {
+                        document.getElementById('successMessage').style.display = 'none';
+                    }, 3000);
+                    
+                } catch (error) {
+                    console.error('Hata:', error);
+                    alert('Mesaj gönderilirken bir hata oluştu. Lütfen daha sonra tekrar deneyin.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
